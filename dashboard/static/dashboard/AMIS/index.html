@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>amis demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" href="sdk/sdk.css" />
+    <link rel="stylesheet" href="sdk/helper.css" />
+    <link rel="stylesheet" href="sdk/iconfont.css" />
+    <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
+    <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
+    <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
+    <!-- 不过 amis 开发团队几乎没测试过 IE 11 下的效果，所以可能有细节功能用不了，如果发现请报 issue -->
+    <style>
+      html,
+      body,
+      .app-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" class="app-wrapper"></div>
+    <script src="sdk/sdk.js"></script>
+    <script type="text/javascript">
+      (function () {
+        let amis = amisRequire('amis/embed');
+        // 通过替换下面这个配置来生成不同页面
+        let amisJSON =
+        {
+      "type": "page",
+      "body":
+      [
+       {
+        'type': 'grid-2d',
+        'grids':
+        [
+        {
+         'x': 1,
+         'y': 1,
+         'h': 1,
+         'w': 4,
+         'height': 'auto',
+         "type": "chart",
+          "api": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/chart/chart",
+          "interval": 5000
+          },
+          {
+          'x': 5,
+         'y': 1,
+         'h': 1,
+         'w': 4,
+         'height': 'auto',
+         "type": "chart",
+          "api": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/chart/chart",
+          "interval": 5000
+          },
+          {
+          'x': 9,
+         'y': 1,
+         'h': 1,
+         'w': 4,
+         'height': 'auto',
+         "type": "chart",
+          "api": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/chart/chart",
+          "interval": 5000
+          },
+          {
+          'x': 1,
+           'y': 2,
+           'h': 1,
+           'w': 12,
+           'height': 'auto',
+           'align': 'center',
+           "type": "tpl",
+           'tpl': '总计：123456元',
+           'className': 'text-5xl text-primary'
+          },
+         ]
+        },
+      {
+        "type": "form",
+        "debug": true,
+        "body": [
+          {
+            "type": "condition-builder",
+            "label": "条件组件",
+            "name": "conditions",
+            "description": "适合让用户自己拼查询条件，然后后端根据数据生成 query where",
+            "searchable": true,
+            "fields": [
+              {
+                "label": "文本",
+                "type": "text",
+                "name": "text"
+              },
+              {
+                "label": "数字",
+                "type": "number",
+                "name": "number"
+              },
+              {
+                "label": "布尔",
+                "type": "boolean",
+                "name": "boolean"
+              },
+              {
+                "label": "选项",
+                "type": "select",
+                "name": "select",
+                "options": [
+                  {
+                    "label": "A",
+                    "value": "a"
+                  },
+                  {
+                    "label": "B",
+                    "value": "b"
+                  },
+                  {
+                    "label": "C",
+                    "value": "c"
+                  },
+                  {
+                    "label": "D",
+                    "value": "d"
+                  },
+                  {
+                    "label": "E",
+                    "value": "e"
+                  }
+                ]
+              },
+              {
+                "label": "动态选项",
+                "type": "select",
+                "name": "select2",
+                "source": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/form/getOptions?waitSeconds=1"
+              },
+              {
+                "label": "日期",
+                "children": [
+                  {
+                    "label": "日期",
+                    "type": "date",
+                    "name": "date"
+                  },
+                  {
+                    "label": "时间",
+                    "type": "time",
+                    "name": "time"
+                  },
+                  {
+                    "label": "日期时间",
+                    "type": "datetime",
+                    "name": "datetime"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "crud",
+        "api": "https://3xsw4ap8wah59.cfc-execute.bj.baidubce.com/api/amis-mock/mock2/sample",
+        "syncLocation": false,
+        'affixHeader': false,
+        "columns": [
+          {
+            "name": "id",
+            "label": "ID"
+          },
+          {
+            "name": "engine",
+            "label": "Rendering engine"
+          },
+          {
+            "name": "browser",
+            "label": "Browser"
+          },
+          {
+            "name": "platform",
+            "label": "Platform(s)"
+          },
+          {
+            "name": "version",
+            "label": "Engine version"
+          },
+          {
+            "name": "grade",
+            "label": "CSS grade"
+          }
+        ]
+      }
+    ]
+  };
+        let amisScoped = amis.embed('#root', amisJSON);
+      })();
+    </script>
+  </body>
+</html>sdj/
