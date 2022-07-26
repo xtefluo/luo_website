@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 
 try:
-    from luo_website.local_settings import*
+    from luo_website.local_settings import *
 except ImportError:
     print('No local_settings')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
